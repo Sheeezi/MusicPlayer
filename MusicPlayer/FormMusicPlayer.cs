@@ -24,16 +24,16 @@ namespace MusicPlayer
         {
             musicPlayerLibrary = new MusicPlayerLibrary(mp3Path!);
 
-            musicPlayerLibrary.OnPlayTime += MusicPalyerLibrary_OnPlayTime;
-            musicPlayerLibrary.OnButtonState += MusicPalyerLibrary_OnButtonState;
+            musicPlayerLibrary.OnPlayTime += MusicPlayerLibrary_OnPlayTime;
+            musicPlayerLibrary.OnButtonState += MusicPlayerLibrary_OnButtonState;
         }
 
-        private void MusicPalyerLibrary_OnButtonState(object? sender, (bool previousSongState, bool nextSongState) e)
+        private void MusicPlayerLibrary_OnButtonState(object? sender, (bool previousSongState, bool nextSongState) e)
         {
             SetButtonsFromEvent(e.previousSongState, e.nextSongState);
         }
 
-        private void MusicPalyerLibrary_OnPlayTime(object? sender, (TimeSpan timeSpan, string songName) e)
+        private void MusicPlayerLibrary_OnPlayTime(object? sender, (TimeSpan timeSpan, string songName) e)
         {
             SetLabelsFromEvent(e.timeSpan, e.songName);
         }
@@ -70,7 +70,7 @@ namespace MusicPlayer
 
         private void SetLabelsFromEvent(TimeSpan timeSpan, string songName)
         {
-            if (!musicPlayerLibrary!.SongsExistState)
+            if (musicPlayerLibrary!.SongsExistState)
                 return;
 
             labelDisplaySongName.Text = songName;

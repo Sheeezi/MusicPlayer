@@ -36,9 +36,9 @@ namespace MusicPlayer
             buttonStartResumeSong = new Button();
             buttonPreviousSong = new Button();
             buttonNextSong = new Button();
-            labelDisplaySongName = new();
+            labelDisplaySongName = new System.Windows.Forms.Label();
             buttonStopSong = new Button();
-            labelDisplayTime = new();
+            labelDisplayTime = new System.Windows.Forms.Label();
             trackBarVolume = new TrackBar();
             ((System.ComponentModel.ISupportInitialize)trackBarVolume).BeginInit();
             SuspendLayout();

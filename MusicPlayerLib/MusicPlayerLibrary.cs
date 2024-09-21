@@ -111,7 +111,7 @@ namespace MusicPlayerLib
 
         public void PreviousSong()
         {
-            if (musicPlaying)
+            //if (musicPlaying)
                 StopMusic();
 
             PlayMusic(--songIndex);
@@ -121,7 +121,7 @@ namespace MusicPlayerLib
 
         public void NextSong()
         {
-            if (musicPlaying)
+            //if (musicPlaying)
                 StopMusic();
 
             PlayMusic(++songIndex);
