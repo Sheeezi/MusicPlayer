@@ -23,9 +23,14 @@ namespace MusicPlayer
         private void InitPlayer(string? mp3Path)
         {
             musicPlayerLibrary = new MusicPlayerLibrary(mp3Path!);
-
-            musicPlayerLibrary.OnPlayTime += MusicPlayerLibrary_OnPlayTime;
+            OnPlay();
             musicPlayerLibrary.OnButtonState += MusicPlayerLibrary_OnButtonState;
+        }
+
+        private void OnPlay()
+        {
+            musicPlayerLibrary.OnPlayTime += MusicPlayerLibrary_OnPlayTime;
+            musicPlayerLibrary.OnPlaySongName += MusicPlayerLibrary_OnPlaySongName;
         }
 
         private void MusicPlayerLibrary_OnButtonState(object? sender, (bool previousSongState, bool nextSongState) e)
@@ -33,9 +38,14 @@ namespace MusicPlayer
             SetButtonsFromEvent(e.previousSongState, e.nextSongState);
         }
 
-        private void MusicPlayerLibrary_OnPlayTime(object? sender, (TimeSpan timeSpan, string songName) e)
+        private void MusicPlayerLibrary_OnPlayTime(object? sender, TimeSpan timeSpan)
         {
-            SetLabelsFromEvent(e.timeSpan, e.songName);
+            //SetLabelsFromEvent(timeSpan);
+        }
+
+        private void MusicPlayerLibrary_OnPlaySongName(object? sender, string songName)
+        {
+
         }
 
         private void ButtonStartStopSong_Click(object sender, EventArgs e)

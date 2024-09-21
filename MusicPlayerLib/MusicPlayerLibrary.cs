@@ -22,7 +22,9 @@ namespace MusicPlayerLib
 
         private System.Windows.Forms.Timer? updateTimer;
 
-        public event EventHandler<(TimeSpan timeSpan, string songName)>? OnPlayTime;
+        public event EventHandler<TimeSpan>? OnPlayTime;
+
+        public event EventHandler<string> OnPlaySongName;
 
         public event EventHandler<(bool previousSongState, bool nextSongState)>? OnButtonState;
 
@@ -58,7 +60,7 @@ namespace MusicPlayerLib
             var playTime = GetPlayTime();
             var currentFileName = GetCurrentPlayFileName();
 
-            SetPlayTime(playTime, currentFileName);
+            SetPlayTime(playTime);
 
             var (previousSongState, nextSongState) = GetButtonsState();
 
@@ -171,9 +173,9 @@ namespace MusicPlayerLib
             return result;
         }
 
-        private void SetPlayTime(TimeSpan timeSpan, string songName)
+        private void SetPlayTime(TimeSpan timeSpan)
         {
-            OnPlayTime?.Invoke(this, (timeSpan, songName));
+            OnPlayTime?.Invoke(this, timeSpan);
         }
 
         private void SetButtonState(bool previousSongState, bool nextSongState)
