@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
@@ -61,6 +62,7 @@ namespace MusicPlayerLib
             var currentFileName = GetCurrentPlayFileName();
 
             SetPlayTime(playTime);
+            SetSongName(currentFileName);
 
             var (previousSongState, nextSongState) = GetButtonsState();
 
@@ -176,6 +178,11 @@ namespace MusicPlayerLib
         private void SetPlayTime(TimeSpan timeSpan)
         {
             OnPlayTime?.Invoke(this, timeSpan);
+        }
+
+        private void SetSongName(string songName)
+        {
+            OnPlaySongName?.Invoke(this, songName);
         }
 
         private void SetButtonState(bool previousSongState, bool nextSongState)

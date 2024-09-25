@@ -23,14 +23,9 @@ namespace MusicPlayer
         private void InitPlayer(string? mp3Path)
         {
             musicPlayerLibrary = new MusicPlayerLibrary(mp3Path!);
-            OnPlay();
-            musicPlayerLibrary.OnButtonState += MusicPlayerLibrary_OnButtonState;
-        }
-
-        private void OnPlay()
-        {
             musicPlayerLibrary.OnPlayTime += MusicPlayerLibrary_OnPlayTime;
-            musicPlayerLibrary.OnPlaySongName += MusicPlayerLibrary_OnPlaySongName;
+            musicPlayerLibrary.OnPlaySongName += MusicPlayerLibrary_OnPlayName;
+            musicPlayerLibrary.OnButtonState += MusicPlayerLibrary_OnButtonState;
         }
 
         private void MusicPlayerLibrary_OnButtonState(object? sender, (bool previousSongState, bool nextSongState) e)
@@ -40,7 +35,11 @@ namespace MusicPlayer
 
         private void MusicPlayerLibrary_OnPlayTime(object? sender, TimeSpan timeSpan)
         {
-            //SetLabelsFromEvent(timeSpan);
+            SetLabelFromEventTime(timeSpan);
+        }
+        private void MusicPlayerLibrary_OnPlayName(object? sender, string songName)
+        {
+            SetLabelFromEventName(songName);
         }
 
         private void MusicPlayerLibrary_OnPlaySongName(object? sender, string songName)
@@ -78,17 +77,23 @@ namespace MusicPlayer
             musicPlayerLibrary!.LoadMusicPlayer();
         }
 
-        private void SetLabelsFromEvent(TimeSpan timeSpan, string songName)
+        private void SetLabelFromEventTime(TimeSpan timeSpan)
         {
             if (musicPlayerLibrary!.SongsExistState)
                 return;
-
-            labelDisplaySongName.Text = songName;
 
             var playTime = timeSpan.ToString();
 
             labelDisplayTime.Text = playTime.Substring(3, 5);
         }
+        private void SetLabelFromEventName(string songName)
+        {
+            if (musicPlayerLibrary!.SongsExistState)
+                return;
+
+            labelDisplaySongName.Text = songName;
+        }
+
 
         private void SetButtonsFromEvent(bool previousSongState, bool nextSongState)
         {
